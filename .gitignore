@@ -1,3 +1,3 @@
 /dataset/*
-/weights/*
+/weights/*.h5
 /prediction-files/*
