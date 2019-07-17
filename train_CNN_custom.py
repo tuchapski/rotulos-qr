@@ -14,8 +14,8 @@ from keras.preprocessing import image
 #:::Model
 #::::::::::
 
-BASE_DIR = 'C:\\Users\\tuchapski\\Documents\\Projetos\\rotulos-qr\\'
-batch_size = 16
+BASE_DIR = 'C:\\Users\\atuchapski\\Documents\\Projetos\\rotulos-qr\\'
+batch_size = 8
 num_classes = 2
 img_width = 200
 img_height = 200
@@ -75,7 +75,7 @@ validation_generator = validation_datagen.flow_from_directory(validation_dir,
 #Run model training
 history = model.fit_generator(train_generator,
                               validation_data = validation_generator,
-                              epochs = 5,                              
+                              epochs = 15,                              
                               verbose = 1)
 
 train_labels = train_generator.class_indices
@@ -142,7 +142,7 @@ def predict_images(prediction_dir):
         prob = max(classes[0])
         
         if prob < 0.7:
-            print('Imagem {0} é {1} - Prob {2:.3f} % -- (BAIXA PROBABILIDADE)'.format(fn, predicted, prob ))
+            print('Imagem {0} é {1} - Prob {2:.3f} % -- Baixa Prob.'.format(fn, predicted, prob ))
         else:
             print('Imagem {0} é {1} - Prob: {2:.3f} %'.format(fn, predicted, prob ))
         

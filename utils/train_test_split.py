@@ -3,7 +3,7 @@ import os
 from shutil import copyfile
 import random
 
-BASE_DIR ='C:\\Users\\tuchapski\\Documents\\Projetos\\rotulos-qr\\'
+BASE_DIR ='C:\\Users\\atuchapski\\Documents\\Projetos\\rotulos-qr\\'
 src_dir = BASE_DIR + 'qr-dataset\\'
 dst_dir = BASE_DIR + 'dataset\\'
 

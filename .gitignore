@@ -2,3 +2,5 @@
 /weights/*.h5
 /prediction-files/*
 /qr-dataset/*
+.ipynb_checkpoints
+
