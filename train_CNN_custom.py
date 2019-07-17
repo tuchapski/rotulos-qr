@@ -14,12 +14,12 @@ from keras.preprocessing import image
 #:::Model
 #::::::::::
 
-BASE_DIR = 'C:\\Users\\tuchapski\\OneDrive\\TENSOR\\Rotulos\\'
+BASE_DIR = 'C:\\Users\\tuchapski\\Documents\\Projetos\\rotulos-qr\\'
 batch_size = 16
 num_classes = 2
 img_width = 200
 img_height = 200
-model_name = 'keras_rotulos_acc8125_custom.h5'
+model_name = 'keras_rotulos-qr_acc8125_custom.h5'
 
 
 model = Sequential()

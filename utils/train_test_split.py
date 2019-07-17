@@ -3,11 +3,11 @@ import os
 from shutil import copyfile
 import random
 
-BASE_DIR ='C:\\Users\\atuchapski\\Documents\\TENSOR\\Rotulos\\'
-src_dir = BASE_DIR + 'Images\\'
+BASE_DIR ='C:\\Users\\tuchapski\\Documents\\Projetos\\rotulos-qr\\'
+src_dir = BASE_DIR + 'qr-dataset\\'
 dst_dir = BASE_DIR + 'dataset\\'
 
-def dataset_split(src_dir, dst_dir, split_rate=0.2):
+def dataset_split(src_dir, dst_dir, split_rate=0.1):
     dst_dir = dst_dir
     training_dir = dst_dir + '\\Training\\'
     validation_dir = dst_dir + '\\Validation\\'
@@ -54,14 +54,18 @@ def dataset_split(src_dir, dst_dir, split_rate=0.2):
         random.shuffle(files_list)       
         n_training_files = int(len(files_list) * split_rate)
         
-        for file in files_list[:n_training_files + 1]:
+        for file in files_list[n_training_files:]:
             try:
                 copyfile(src_dir + subfolder + '\\' + file, training_dir + subfolder + '\\' + file)
             except:
                 print('Already exists, ignoring!')
-        for file in files_list[n_training_files::]:
+        for file in files_list[:n_training_files + 1]:
             try:
                 copyfile(src_dir + subfolder + '\\' + file, validation_dir + subfolder + '\\' + file)
             except:
                 print('Already exists, Ignoring!')
+                
+    print('Done!')
+                
+dataset_split(src_dir, dst_dir)
         

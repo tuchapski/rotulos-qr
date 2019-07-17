@@ -1,3 +1,4 @@
 /dataset/*
 /weights/*.h5
 /prediction-files/*
+/qr-dataset/*
