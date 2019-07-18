@@ -14,8 +14,8 @@ from keras.preprocessing import image
 #:::Model
 #::::::::::
 
-BASE_DIR = 'C:\\Users\\atuchapski\\Documents\\Projetos\\rotulos-qr\\'
-batch_size = 8
+BASE_DIR = 'C:\\Users\\tuchapski\\Documents\\Projetos\\rotulos-qr\\'
+batch_size = 16
 num_classes = 2
 img_width = 200
 img_height = 200
@@ -58,7 +58,9 @@ train_datagen = ImageDataGenerator(rescale = 1.0/255.,
                                    height_shift_range = 0.1,
                                    shear_range = 0.1,
                                    zoom_range = 0.1,
-                                   horizontal_flip = False)
+                                   horizontal_flip = True,
+                                   vertical_flip = True)
+                                    
 
 validation_datagen = ImageDataGenerator(rescale = 1.0/255.)
 
@@ -75,7 +77,7 @@ validation_generator = validation_datagen.flow_from_directory(validation_dir,
 #Run model training
 history = model.fit_generator(train_generator,
                               validation_data = validation_generator,
-                              epochs = 15,                              
+                              epochs = 30,                              
                               verbose = 1)
 
 train_labels = train_generator.class_indices
