@@ -12,7 +12,11 @@ def rename_files(path, prefix):
     path = path
       
     for filename in os.listdir(path): 
-        dst = prefix + str(i) + ".jpg"
+        if i < 10:
+            dst = prefix + '0' + str(i) + ".jpg"
+        else:
+            dst = prefix + str(i) + ".jpg"
+        
         src = path + filename 
         dst = path + dst 
           
