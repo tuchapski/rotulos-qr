@@ -15,11 +15,11 @@ from keras.preprocessing import image
 #::::::::::
 
 BASE_DIR = 'C:\\Users\\tuchapski\\Documents\\Projetos\\rotulos-qr\\'
-batch_size = 20
+batch_size = 15
 num_classes = 2
 img_width = 200
 img_height = 200
-model_name = 'keras_rotulos-qr_acc8125_custom.h5'
+model_name = 'keras_rotulos-qr_acc8750_custom.h5'
 
 
 model = Sequential()
@@ -29,17 +29,17 @@ model.add(Activation('relu'))
 model.add(Conv2D(32, (3, 3)))
 model.add(Activation('relu'))
 model.add(MaxPooling2D(pool_size=(2, 2)))
-model.add(Dropout(0.25))
+#model.add(Dropout(0.1))
 model.add(Conv2D(64, (3, 3), padding='same'))
 model.add(Activation('relu'))
 model.add(Conv2D(64, (3, 3)))
 model.add(Activation('relu'))
 model.add(MaxPooling2D(pool_size=(2, 2)))
-model.add(Dropout(0.25))
+model.add(Dropout(0.1))
 model.add(Flatten())
 model.add(Dense(512))
 model.add(Activation('relu'))
-model.add(Dropout(0.5))
+model.add(Dropout(0.3))
 model.add(Dense(num_classes))
 model.add(Activation('softmax'))
 
@@ -53,7 +53,7 @@ train_dir = BASE_DIR + 'dataset\\Training'
 validation_dir = BASE_DIR + 'dataset\\Validation'
 
 train_datagen = ImageDataGenerator(rescale = 1.0/255.,
-                                   rotation_range = 20,
+                                   rotation_range = 10,
                                    width_shift_range = 0.1,
                                    height_shift_range = 0.1,
                                    shear_range = 0.1,
@@ -75,7 +75,7 @@ validation_generator = validation_datagen.flow_from_directory(validation_dir,
 #Run model training
 history = model.fit_generator(train_generator,
                               validation_data = validation_generator,
-                              epochs = 35,                              
+                              epochs = 20,                              
                               verbose = 1)
 
 train_labels = train_generator.class_indices
@@ -141,7 +141,7 @@ def predict_images(prediction_dir):
         
         prob = max(classes[0])
         
-        if prob < 0.7:
+        if prob < 0.65:
             print('Imagem {0} é {1} - Prob {2:.3f} % -- Baixa Prob.'.format(fn, predicted, prob ))
         else:
             print('Imagem {0} é {1} - Prob: {2:.3f} %'.format(fn, predicted, prob ))
@@ -149,5 +149,4 @@ def predict_images(prediction_dir):
         
 prediction_dir = BASE_DIR + 'prediction-files\\' 
 predict_images(prediction_dir)
-
 

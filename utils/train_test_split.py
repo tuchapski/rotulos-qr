@@ -7,7 +7,7 @@ BASE_DIR ='C:\\Users\\tuchapski\\Documents\\Projetos\\rotulos-qr\\'
 src_dir = BASE_DIR + 'qr-dataset\\'
 dst_dir = BASE_DIR + 'dataset\\'
 
-def dataset_split(src_dir, dst_dir, split_rate=0.1):
+def dataset_split(src_dir, dst_dir, split_rate=0.2):
     dst_dir = dst_dir
     training_dir = dst_dir + '\\Training\\'
     validation_dir = dst_dir + '\\Validation\\'
