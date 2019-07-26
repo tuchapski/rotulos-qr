@@ -15,31 +15,30 @@ from keras.preprocessing import image
 #::::::::::
 
 BASE_DIR = 'C:\\Users\\tuchapski\\Documents\\Projetos\\rotulos-qr\\'
-batch_size = 15
+batch_size = 8
 num_classes = 2
 img_width = 200
 img_height = 200
 model_name = 'keras_rotulos-qr_acc8750_custom.h5'
-
+ 
 
 model = Sequential()
-model.add(Conv2D(32, (3,3), padding='same', 
-                 input_shape = (img_width, img_height, 3)))
+model.add(Conv2D(32, (3,3), padding='same', input_shape = (img_width, img_height, 3)))
 model.add(Activation('relu'))
 model.add(Conv2D(32, (3, 3)))
 model.add(Activation('relu'))
 model.add(MaxPooling2D(pool_size=(2, 2)))
-#model.add(Dropout(0.1))
+model.add(Dropout(0.1))
 model.add(Conv2D(64, (3, 3), padding='same'))
 model.add(Activation('relu'))
 model.add(Conv2D(64, (3, 3)))
 model.add(Activation('relu'))
 model.add(MaxPooling2D(pool_size=(2, 2)))
-model.add(Dropout(0.1))
+model.add(Dropout(0.2))
 model.add(Flatten())
 model.add(Dense(512))
 model.add(Activation('relu'))
-model.add(Dropout(0.3))
+model.add(Dropout(0.4))
 model.add(Dense(num_classes))
 model.add(Activation('softmax'))
 
@@ -57,7 +56,8 @@ train_datagen = ImageDataGenerator(rescale = 1.0/255.,
                                    width_shift_range = 0.1,
                                    height_shift_range = 0.1,
                                    shear_range = 0.1,
-                                   zoom_range = 0.1)
+                                   zoom_range = 0.1,
+                                   horizontal_flip=True)
                                     
 
 validation_datagen = ImageDataGenerator(rescale = 1.0/255.)
@@ -75,7 +75,7 @@ validation_generator = validation_datagen.flow_from_directory(validation_dir,
 #Run model training
 history = model.fit_generator(train_generator,
                               validation_data = validation_generator,
-                              epochs = 20,                              
+                              epochs = 15,                              
                               verbose = 1)
 
 train_labels = train_generator.class_indices

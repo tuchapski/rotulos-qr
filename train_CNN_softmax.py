@@ -16,8 +16,8 @@ from keras.preprocessing import image
 #::::::::LOAD AND SETUP PRE-TRAINED MODEL
 #:::::::::::::::::::::::::::::::::::
                 
-BASE_DIR = "C:\\Users\\tuchapski\\OneDrive\\TENSOR\\Rotulos\\"                
-local_weights_file = BASE_DIR + 'inception_v3_weights_tf_dim_ordering_tf_kernels_notop.h5'
+BASE_DIR = "C:\\Users\\tuchapski\\Documents\\Projetos\\rotulos-qr\\"                
+local_weights_file = BASE_DIR + 'weights\\inception_v3_weights_tf_dim_ordering_tf_kernels_notop.h5'
 img_width = 200
 img_height = 200
 batch_size = 8
@@ -30,8 +30,8 @@ pre_trained_model = InceptionV3(input_shape = (img_width, img_height, 3),
 
 pre_trained_model.load_weights(local_weights_file)
 
-for layer in pre_trained_model.layers:
-  layer.trainable = False
+#for layer in pre_trained_model.layers:
+#  layer.trainable = False
 
 last_layer = pre_trained_model.get_layer('mixed7') #Corta o modelo InceptionV3 na camada mixed7
 #print('last layer output shape', last_layer.output_shape)
@@ -74,7 +74,7 @@ validation_generator = validation_datagen.flow_from_directory(validation_dir,
 #Run model training
 history = model.fit_generator(train_generator,
                               validation_data = validation_generator,
-                              epochs = 3,
+                              epochs = 10,
                               verbose = 1)
 
 train_labels = train_generator.class_indices
