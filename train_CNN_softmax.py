@@ -22,7 +22,7 @@ img_width = 200
 img_height = 200
 batch_size = 8
 learning_rate = 0.0001
-epochs = 6
+epochs = 5
 
 pre_trained_model = InceptionV3(input_shape = (img_width, img_height, 3),
                                 include_top = False,
@@ -74,7 +74,7 @@ validation_generator = validation_datagen.flow_from_directory(validation_dir,
 #Run model training
 history = model.fit_generator(train_generator,
                               validation_data = validation_generator,
-                              epochs = 10,
+                              epochs = epochs,
                               verbose = 1)
 
 train_labels = train_generator.class_indices
@@ -83,9 +83,9 @@ train_labels = train_generator.class_indices
 #::::::::::Save/Load Model
 #::::::::::::::::::::::::::::::::::::
 
-model.save_weights(BASE_DIR + 'weights-rotulos-softmax--6250.h5')
+model.save_weights(BASE_DIR + 'weights\\weights-rotulos-softmax--10000.h5')
 #model.save('label_antartica_5833.h5') #To save the entire model en load later with load_model...
-model.load_weights(BASE_DIR + 'weights-rotulos-softmax--6250.h5')
+model.load_weights(BASE_DIR + 'weights\\weights-rotulos-softmax--6250.h5')
 
 #model = tf.keras.models.load_model('dog_races_acc61.h5') #To load full model after...
 
