@@ -2,40 +2,35 @@ import os, fnmatch
 
 class Preprocess:
     
-    def __init__(self, base_dir=None):
-        self.base_dir = base_dir
-        if self.base_dir == None:
-            self.base_dir = os.getcwd()
-            
-    def list_from_dir(self, folder=''):
-        self.folder = os.path.join(self.base_dir, folder)
-        self.found_files = []          
-        for self.filename in os.listdir(self.folder):
-#           if os.path.isfile(os.path.join(self.folder, self.filename)):
-            self.found_files.append(self.filename)
-        return self.folder, self.found_files   
-    
-    def list_from_dir_recursive(self, folder=''):
-        self.folder = folder
-        self.found_files = []        
-        for self.d in os.walk(os.path.join(self.base_dir, folder)):        
-            self.found_files.append(self.d)
-        return self.found_files
-    
-    def search_files(self, pattern='*.*', recursive='n'):
-        self.pattern = pattern
-        self.recursive = recursive
-        
-    """def rename_files(self, prefix='file_', extention):
+    def __init__(self):
         pass
-        self.prefix = prefix
-        self.extention = extention
-        self.i = 1
-        if len(self.scanned_files) == 0:
-            self.scan_files(extention=self.extention)
-        for self.filename in self.scanned_files:
-            if i < 10:
-                dst = self.prefix + '0' + str(self.i) + self.extention
+    
+    def search_files(self, path='.',   
+                     pattern='*.*'):
+        self.path = path
+        self.pattern = pattern                       
+        self.search_result = []
+        for self.item in os.listdir(self.path):
+            if fnmatch.fnmatch(self.item, self.pattern) and os.path.isfile(os.path.join(self.path, self.item)):
+                self.search_result.append(self.item)
+        return self.search_result                        
+                
+    def rename_files(self, path=None,
+                     new_name='',
+                     pattern = '*.*'):
+        self.path = path
+        SELF.new_name = new_name
+        self.pattern = pattern
+        self.serial = serial
+        self.i = 1        
+        self.file_list = self.search_files(self.path, self.pattern)
+        
+        for self.f in self.file_list:
+            if self.i < 10:
+                self.serie = '0' + str(self.i)
+                    for self.filename in self.scanned_files:
+                        if i < 10:
+                            self.dst = self.prefix + self + str(self.i) + self.extention
             else:
                 dst = prefix + str(i) + self.extention
                     
@@ -45,8 +40,4 @@ class Preprocess:
                 # rename() function will 
                 # rename all the files 
                 os.rename(src, dst) 
-                i += 1"""
-            
-yum = Preprocess()
-
-yum.list_files_from_dir()
+                i += 1       
