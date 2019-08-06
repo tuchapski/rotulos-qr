@@ -2,12 +2,28 @@ import os, fnmatch
 
 class Preprocess:
     
-    def __init__(self):
-        pass
-    
-    def search_files(self, path='.',   
-                     pattern='*.*'):
+    def __init__(self, path='.'):
         self.path = path
+    
+    def get_extention(self, file):
+        self.file = file
+        os.path.join(self.path, self.file)
+        return os.path.splitext(file)[1]
+    
+    def get_empty_extention(self):
+        self.file_list = self.search_files(pattern='*')
+        self.empty_files = []        
+        for self.file in self.file_list:
+            if self.get_extention(self.file) == '':
+                self.empty_files.append(self.file)
+        return self.empty_files
+   
+    def remove_files(self, files=[]):
+        self.files = files
+        for self.file in self.files:
+            os.remove(os.path.join(self.path, self.file))
+            
+    def search_files(self, pattern='*.*'):
         self.pattern = pattern                       
         self.search_result = []
         for self.item in os.listdir(self.path):
@@ -15,29 +31,26 @@ class Preprocess:
                 self.search_result.append(self.item)
         return self.search_result                        
                 
-    def rename_files(self, path=None,
-                     new_name='',
-                     pattern = '*.*'):
+    def rename_files(self, path,
+                     new_name='file_',
+                     pattern = '*'):
         self.path = path
-        SELF.new_name = new_name
+        self.new_name = new_name
         self.pattern = pattern
-        self.serial = serial
-        self.i = 1        
-        self.file_list = self.search_files(self.path, self.pattern)
+        self.i = 1 
+        self.file_list = self.search_files(self.pattern)
+        self.ext = []
+
         
-        for self.f in self.file_list:
+        for self.file in self.file_list:
+            self.ext = self.get_extention(self.file)
             if self.i < 10:
-                self.serie = '0' + str(self.i)
-                    for self.filename in self.scanned_files:
-                        if i < 10:
-                            self.dst = self.prefix + self + str(self.i) + self.extention
+                self.new = self.new_name + '0' + str(self.i) + self.ext
             else:
-                dst = prefix + str(i) + self.extention
-                    
-                self.src = path + filename 
-                dst = path + dst 
-                    
-                # rename() function will 
-                # rename all the files 
-                os.rename(src, dst) 
-                i += 1       
+                self.new = self.new_name + str(self.i) + self.ext
+            
+            self.src = os.path.join(self.path, self.file)
+            self.dst = os.path.join(self.path, self.new)
+
+            os.rename(self.src, self.dst) 
+            self.i += 1
