@@ -1,13 +1,13 @@
 import os
-from preprocess_files import Preprocess
+from util.preprocess_files import Preprocess
 
 BASE_DIR = os.getcwd()
-IMAGES_DIR = os.path.join(BASE_DIR, 'data')
+SOURCE_DIR = 'qr-dataset'
+DATASET_DIR = 'dataset'
+split_rate= 0.15
 
-files = Preprocess(IMAGES_DIR)
-#files.rename_files(IMAGES_DIR, pattern='*.docx')
-files.get_empty_extention()
+prepare_files = Preprocess(path=BASE_DIR, 
+                           source_data=SOURCE_DIR, 
+                           dataset_folder=DATASET_DIR)
 
-files.search_files()
-
-files.rename_files(IMAGES_DIR, new_name='fake-', pattern='2x*.jpg')
+prepare_files.train_test_split(split_rate=split_rate)
