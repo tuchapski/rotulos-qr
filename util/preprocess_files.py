@@ -127,14 +127,61 @@ class Preprocess:
         print('Done!')
         
     
+class ModelData():
+    def __init__(self, root='.',
+                 dataset_folder='dataset-test',
+                 train_dir_name='Training',
+                 validation_dir_name='Validation',
+                 prediction_dir_name='Prediction'):
+        self.root = root
+        self.dataset_folder = dataset_folder
+        self.train_dir_name = train_dir_name
+        self.validation_dir_name = validation_dir_name
+        self.prediction_dir_name = prediction_dir_name
     
+    def get_dataset_folder_path(self):
+        return os.path.join(self.root, self.dataset_folder)    
+    def get_train_dir(self):
+        return os.path.join(self.get_dataset_folder_path(), self.train_dir_name)    
+    def get_validation_dir(self):
+        return os.path.join(self.get_dataset_folder_path(), self.validation_dir_name)        
+    def get_prediction_dir(self):
+        return os.path.join(self.get_dataset_folder_path(), self.prediction_dir_name) 
+    def get_folder_structure(self):
+        return [self.get_dataset_folder_path(), self.get_train_dir(), self.get_validation_dir(), self.get_prediction_dir()]
+    def set_dataset_folder_path(self, name):
+        self.name = name
+        self.dataset_folder = self.name        
+    def set_train_dir_name(self, name):
+        self.name = name
+        self.train_dir_name = self.name        
+    def set_validation_dir_name(self, name):
+        self.name = name
+        self.validation_dir_name = self.name
+    def set_prediction_dir_name(self, name):
+        self.name = name
+        self.prediction_dir_name = self.name
+    def create_structure(self):
+        for self.folder in self.get_folder_structure():
+            if not os.path.exists(self.folder): 
+                os.mkdir(self.folder)
+    def delete_structure(self):
+        for self.folder in reversed(self.get_folder_structure()):
+            if os.path.exists(self.folder): 
+                os.rmdir(self.folder)
+                
+class SourceData():
+    def __init__(self, src_path, category_list=[]):
+        self.src_path = src_path
+        self.category_list = category_list
     
-    
-    
-    
-    
-    
-    
-    
-    
+    def get_src_path(self):
+        return self.src_path    
+    def get_full_path(self, dname):
+        self.dname = dname
+        return os.path.join(self.get_src_path(), self.dname)    
+    def get_category_list(self):
+        return [self.item for self.item in os.listdir(self.get_src_path()) if os.path.isdir(self.get_full_path(self.item))]
+    def get_folder_list(self):
+        return[self.get_full_path(self.item) for self.item in self.get_category_list()]
 
